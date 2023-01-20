@@ -18,6 +18,12 @@ Basic concepts of databases, including data modeling, relational databases, quer
 |:------|:----------|:-------------|:-------------|:----------|:------|
 |HW 0 |-- |[Requirement]|[GitHub] |--  |--    |
 
+## Labs
+|       |Subject    |Lab Link   |Score  |
+|:------|:----------|:-------------|:------|
+|Lab 1 |Kings |[Lab](./Lab/Lab1.md)|6/6    |
+|Lab 2 |Battleships |[Lab](./Lab/Lab2.md)|--    |
+
 ## Slides
 |       |Subject    |Slide   |
 |:------|:----------|:-------------|
