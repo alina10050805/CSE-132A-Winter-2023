@@ -22,7 +22,7 @@ Basic concepts of databases, including data modeling, relational databases, quer
 |       |Subject    |Lab Link   |Score  |
 |:------|:----------|:-------------|:------|
 |Lab 1 |Kings |[Lab](./Lab/Lab1.md)|6/6    |
-|Lab 2 |Battleships |[Lab](./Lab/Lab2.md)|--    |
+|Lab 2 |Battleships |[Lab](./Lab/Lab2.md)|6/6    |
 
 ## Slides
 |       |Subject    |Slide   |
