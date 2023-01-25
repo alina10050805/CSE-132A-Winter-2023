@@ -14,9 +14,9 @@
 Basic concepts of databases, including data modeling, relational databases, query languages, optimization, dependencies, schema design, and concurrency control. Exposure to one or several commercial database systems. Advanced topics such as deductive and object-oriented databases, time allowing. Prerequisites: CSE 100 or CSE 100R.
 
 ## Homeworks
-|       |Subject    |Requirement   |GitHub Link   |Feedback   |Score  |
-|:------|:----------|:-------------|:-------------|:----------|:------|
-|HW 0 |-- |[Requirement]|[GitHub] |--  |--    |
+|       |Subject    |HW   |
+|:------|:----------|:-------------|
+|HW 0 |Constraints |[HW 0](./HW/HW0.md) |
 
 ## Labs
 |       |Subject    |Lab Link   |Score  |
