@@ -30,3 +30,5 @@ Basic concepts of databases, including data modeling, relational databases, quer
 |Lecture 1 |Introduction |[Introduction](./slides/introduction.pdf)  |
 |Lecture 2 |RelationalModel+SQL DDL |[RelationalModel+SQL DDL](./slides/RelationalModel%2BSQL%20DDL.pdf)  |
 |Lecture 3 |SQL-Core |[SQL-Core](./slides/SQL-Core.pdf)  |
+|Lecture 4 |SQL-Core |--  |
+|Lecture 5 |SQL-Core |--(*************NOTE)  |
