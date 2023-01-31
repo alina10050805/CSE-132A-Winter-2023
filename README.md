@@ -32,3 +32,4 @@ Basic concepts of databases, including data modeling, relational databases, quer
 |Lecture 3 |SQL-Core |[SQL-Core](./slides/SQL-Core.pdf)  |
 |Lecture 4 |SQL-Core |--  |
 |Lecture 5 |SQL-Core |--(*************NOTE)  |
+|Lecture 6 |SQL nulls, joins and updates & relational.calculus |[SQL nulls, joins and updates](./slides/SQL%20nulls%2C%20joins%20and%20updates.pdf) & [relational.calculus](./slides/relational.calculus.pdf)  |
