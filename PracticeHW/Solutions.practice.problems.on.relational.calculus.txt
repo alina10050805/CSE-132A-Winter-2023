@@ -1,0 +1,277 @@
+\documentstyle[11pt]{article}
+\begin{document}
+\begin{center}
+{\bf CSE 132A}  \\
+\vspace{4mm}
+{\large \bf Solutions to practice problems on tuple calculus and SQL}
+\end{center}
+\vspace{6mm}
+
+
+\noindent
+{\bf Problem 1}
+
+\begin{enumerate}
+
+\item [(a)] List the bars that serve a beer that Joe likes.
+
+\item [(i)] tuple calculus:
+
+$$\{ b: bar \mid \exists s \in serves \exists l \in likes $$
+$$(s(bar) = b(bar) \wedge s(beer)= l(beer) \wedge l(drinker) = Joe)\}.$$
+
+
+
+\item [(ii)] SQL:
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} s.bar \\
+{\bf from} serves s, likes l  \\
+{\bf where} s.beer = l.beer \\
+ AND l.drinker =  ``Joe''
+\end{tabular}
+\vspace{4mm}
+
+
+\item [(b)]  List the drinkers that frequent at least one bar that serves a beer
+ they like.
+
+\item [(i)] tuple calculus:
+
+$$
+\begin{array}{l}
+\{ d:drinker \mid \exists f \in frequents \exists s \in serves \exists l \in likes  \\
+(d(drinker) = f(drinker) \wedge f(bar) = s(bar) \\
+\wedge s(beer) = l(beer) \wedge l(drinker) = f(drinker))\}  \\
+\end{array}
+$$
+ 
+ 
+\item [(ii)] SQL:
+
+\begin{tabular}{l}
+{\bf select} f.drinker \\
+{\bf from} frequents f, serves s, likes l \\
+{\bf where} f.bar = s.bar \\ 
+and s.beer = l.beer \\
+and l.drinker = f.drinker
+\end{tabular}
+
+
+\item [(c)]  List the drinkers that frequent only bars that serve some beer that
+ they like. \\
+(Assume each drinker likes at least one beer and frequents at least one bar.)
+
+\item [(i)] tuple calculus:
+
+$$
+\begin{array}{l}
+\{ d: drinker \mid \exists f \in frequents~(f(drinker) = d(drinker) \wedge \\
+\forall y \in frequents [y(drinker) = f(drinker) \rightarrow \\
+\exists s \in serves \exists l \in likes (s(bar) = y(bar) \wedge \\
+s(beer) = l(beer) \wedge l(drinker) = y(drinker))]\}
+\end{array}
+$$
+
+Existential form:
+
+$$
+\begin{array}{l}
+\{ d: drinker \mid \exists f \in frequents~(f(drinker) = d(drinker) \wedge \\
+\neg \exists y \in frequents [y(drinker) = f(drinker) \wedge \\
+\neg \exists s \in serves \exists l \in likes (s(bar) = y(bar) \wedge \\
+s(beer) = l(beer) \wedge l(drinker) = y(drinker))]\}
+\end{array}
+$$
+
+ 
+
+\item [(ii)] SQL:
+
+
+\vspace{4mm}
+Using NOT EXISTS (see tuple calculus query above):
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} f.drinker \\
+{\bf from} frequents f \\
+{\bf where} {\bf not exists} \\
+\hspace{1cm} ({\bf select} * \\
+\hspace{1cm} {\bf from} frequents y \\
+\hspace{1cm} {\bf where} y.drinker = f.drinker and {\bf not exists} \\
+\hspace{2cm} ({\bf select} * \\
+\hspace{2cm} {\bf from} serves s, likes l \\
+\hspace{2cm} {\bf where} s.bar= y.bar  \\
+\hspace{2cm} and s.beer= l.beer \\
+\hspace{2cm} and l.drinker = y.drinker))
+\end{tabular}
+
+
+\vspace{4mm}
+Another version using NOT IN:
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} drinker \\
+{\bf from} frequents \
+{\bf where} drinker {\bf not in} \\
+\hspace{1cm} ({\bf select} f.drinker \\
+\hspace{1cm} {\bf from} frequents f \\
+\hspace{1cm} {\bf where} f.bar {\bf not in} \\
+\hspace{2cm} ({\bf select} bar \\
+\hspace{2cm} {\bf from} serves, likes \\
+\hspace{2cm} {\bf where} serves.beer = likes.beer  \\
+\hspace{2cm} and likes.drinker = f.drinker))
+\end{tabular}
+
+
+\item [(d)]  List the drinkers who frequent no bar that serves a beer that they
+ like.
+
+This is just the complement of (b).
+
+\item [(e)] List the drinkers such that every bar they frequent serves every beer they like.
+
+\item [(i)] relational calculus:
+
+$$\{d:drinker \mid \exists f \in frequents (f(drinker) = d(drinker) ~\wedge $$
+$$\forall x \in frequents~\forall l \in likes~((x(drinker) = f(drinker) ~\wedge~ l(drinker) = f(drinker)) \rightarrow $$
+$$\exists s \in serves ~(s(bar) = x(bar) ~\wedge~ s(beer) = l(beer))))\}$$
+
+Existential form:
+
+$$\{d:drinker \mid \exists f \in frequents (f(drinker) = d(drinker) ~\wedge $$
+$$\neg \exists x \in frequents~\exists l \in likes~(x(drinker) = f(drinker) ~\wedge~ l(drinker) = f(drinker) ~\wedge $$
+$$\neg \exists s \in serves ~(s(bar) = x(bar) ~\wedge~ s(beer) = l(beer))))\}$$
+
+SQL:
+
+
+\begin{tabular}{l}
+select f.drinker from frequents f \\
+where not exists \\
+(select * from frequents x, likes l \\
+where x.drinker = f.drinker and l.drinker = f.drinker and not exists \\
+(select * from serves s \\
+where s.bar = x.bar and s.beer = l.beer))
+\end{tabular}
+
+
+\end{enumerate}
+
+\noindent
+{\bf Problem 2}
+
+\begin{enumerate}
+\item [(c)] List the actors cast only in movies by Berto.
+
+\item [(i)] tuple calculus:
+
+$$\{a:actor \mid \exists m \in movie [a(actor) = m(actor) ~\wedge $$
+$$ \forall t \in movie~(t(actor) = m(actor) \rightarrow ~\exists s \in movie ~(s(title) = t(title) $$
+$$ ~~~~~~\wedge~ s(director) = Berto))]\}$$
+
+EXISTENTIAL form:
+
+$$\{a:actor \mid \exists m \in movie [a(actor) = m(actor) ~\wedge $$
+$$\neg \exists t \in movie~(t(actor) = m(actor) ~\wedge ~\neg \exists s \in movie ~(s(title) = t(title) $$ 
+$$ ~~~~~~\wedge~ s(director) = Berto))]\}$$
+
+
+
+\item [(ii)] SQL (direct translation of the above calculus query, using NOT EXISTS):
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} m.actor \\
+{\bf from} movie m \\
+{\bf where not exists} \\
+\hspace{1cm} ({\bf select} * {\bf from} movie t \\
+\hspace{1cm}              {\bf where} t.actor = m.actor {\bf and not exists} \\ 
+\hspace{2cm}              ({\bf select} * {\bf from} movie s \\
+\hspace{2cm}              {\bf where} s.title = t.title {\bf and} s.director = 'Berto'))
+\end{tabular}
+
+Another possibility, making the  unique director assumption:
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} actor \\
+{\bf from} movie \\
+{\bf where} actor {\bf not in} \\
+\hspace{1cm} ({\bf select} actor \\
+\hspace{1cm} {\bf from} movie \\
+\hspace{1cm} {\bf where} director $\neq ~Berto$ )
+\end{tabular}
+
+
+\item [(b)] List all pairs of distinct actors who act together in at least one
+movie (avoid listing both $(a,b)$ and $(b,a)$).
+\item [(i)] tuple calculus:
+
+$$\{a:actor1, actor2 \mid \exists m1 \in movie~ \exists m2 \in movie (a(actor1) = m1(actor)$$
+$$ \wedge~ a(actor2) = m2(actor) ~\wedge~
+m1(title) = m2(title) ~\wedge~ m1(actor) < m2(actor))\}$$
+
+\item [(ii)] SQL:
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} m1.actor {\bf as} actor1, m2.actor {\bf as} actor2 \\
+{\bf from} movie m1, movie m2\\
+{\bf where} m1.title = m2.title {\bf and} m1.actor $<$ m2.actor
+\end{tabular}
+
+
+
+\item [(c)] List the directors such that every actor is cast in one of
+his/her movies.
+\item [(i)] tuple calculus (no unique director assumption):
+
+$$\{d:director \mid ~\exists m \in movie~[d(director) = m(director) ~\wedge~ $$
+$$\forall t \in movie ~\exists z \in movie
+(z(actor) = t(actor) ~\wedge~ z(director) = m(director))]\}$$ 
+
+\vspace{4mm}
+EXISTENTIAL form:
+
+$$\{d:director \mid ~\exists m \in movie~[d(director) = m(director) ~\wedge~ $$
+$$\neg \exists t \in movie ~\neg \exists z \in movie
+(z(actor) = t(actor) ~\wedge~ z(director) = m(director))]\}$$
+
+\item [(ii)] SQL (direct translation of the above calculus query):
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} m.director {\bf from} movie m \\
+{\bf where} {\bf not exists} \\
+\hspace{1cm} ({\bf select} * {\bf from} movie t \\ 
+\hspace{1cm} {\bf where} {\bf not exists} \\
+\hspace{2cm} ({\bf select} * {\bf from} movie z \\
+\hspace{2cm} {\bf where} z.actor = t.actor {\bf and} z.director = m.director
+\end{tabular} 
+
+\vspace{4mm}
+Another possibility:
+
+
+\vspace{4mm}
+\begin{tabular}{l}
+{\bf select} director \\
+{\bf from} movie \\
+{\bf where} director {\bf not in} \\
+\hspace{1cm} ({\bf select} f.director \\
+\hspace{1cm} {\bf from} movie f, movie g \\
+\hspace{1cm} {\bf where} f.director {\bf not in} \\
+\hspace{2cm} ({\bf select} director \\
+\hspace{2cm} {\bf from} movie \\
+\hspace{2cm} {\bf where} actor = g.actor ))
+\end{tabular}
+\vspace{4mm}
+
+
+
+\end{enumerate}
+\end{document}
