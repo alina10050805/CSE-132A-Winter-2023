@@ -34,7 +34,7 @@ Basic concepts of databases, including data modeling, relational databases, quer
 |Lecture 5 |SQL-Core |--(*************NOTE)  |
 |Lecture 6 |SQL nulls, joins and updates & relational.calculus |[SQL nulls, joins and updates](./slides/SQL%20nulls%2C%20joins%20and%20updates.pdf) & [relational.calculus](./slides/relational.calculus.pdf)  |
 |Lecture 7 |SQL nulls, joins and updates & relational.calculus |--(*********NOTE)  |
-
+|Lecture 8 |SQL nulls, joins & Triggers |[SQL nulls, joins](./slides/SQL%20nulls%20and%20joins.pdf) & [Triggers](./slides/SQL-Views.Assertions.Triggers.pdf)  |
 
 ## Practice Problem
 |       |Subject    |Link   |
