@@ -38,6 +38,7 @@ Basic concepts of databases, including data modeling, relational databases, quer
 |Lecture 9 |Recursive queries |[Recursive queries](./slides/Recursive%20queries.pdf)  |
 |Lecture 10 |Query by Example |[Query by Example](./slides/QBE.pdf)  |
 |Lecture 11 |Query by Example & Query processing basics |[Query processing basics](./slides/Query%20processing%20basics.pdf)  |
+|Lecture 12 |Query processing basics |--  |
 
 ## Practice Problem
 |       |Subject    |Link   |
