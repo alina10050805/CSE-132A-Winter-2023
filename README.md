@@ -39,6 +39,7 @@ Basic concepts of databases, including data modeling, relational databases, quer
 |Lecture 10 |Query by Example |[Query by Example](./slides/QBE.pdf)  |
 |Lecture 11 |Query by Example & Query processing basics |[Query processing basics](./slides/Query%20processing%20basics.pdf)  |
 |Lecture 12 |Query processing basics |--  |
+|Lecture 13 |Join minimization |[Join minimization](./slides/Join%20minimization.pdf)  |
 
 ## Practice Problem
 |       |Subject    |Link   |
