@@ -1,0 +1,206 @@
+\documentstyle[11pt]{article}
+\begin{document}
+\begin{center}
+{\Large Join minimization examples} \\
+\end{center}
+
+
+
+\vspace{4mm}
+\noindent
+Let $R$ be a relation over attributes $ABC$. \\ 
+(i) Simplify the following
+conjunctive SQL query, knowing that it is applied only to relations $R$ satisfying the set of FDs
+$F = \{AC \rightarrow B, B \rightarrow C, C \rightarrow A\}$ (use pattern minimization and
+ the chase):
+
+\vspace{1cm}
+\begin{tabular}{l}
+{\bf select} $t_1.A, t_2.B, t_4.C$ \\
+{\bf from} $R~ t_1, R~ t_2, R~ t_3, R~ t_4$ \\
+{\bf where} $t_3.A = t_4.A$ and $t_2.B = t_3.B$ and $t_1.C = t_2.C$ and $t_3.B = t_4.C$ \\
+\end{tabular}
+\vspace{1cm}
+
+(ii) Redo (i) for the query:
+
+\vspace{1cm}
+
+\begin{tabular}{l}
+{\bf select} $t_1.A, t_2.B, t_4.C$ \\
+{\bf from} $R~ t_1, R~ t_2, R~ t_3, R~ t_4$ \\
+{\bf where} $t_2.C = 5$ and $t_3.A = t_4.A$ and $t_2.B = t_3.B$ and $t_1.C = t_2.C$ and $t_4.A = 8$ 
+\end{tabular}
+
+
+\vspace{4mm}
+\noindent
+{\bf Solution} \\
+(i) The pattern $P$ corresponding to the query is
+$$
+\begin{array}{ll}
+\begin{array}{l|lll} 
+R & A & B & C \\ \hline
+& a & - & c_1 \\
+& - & b & c_1 \\
+& a_1 & b & - \\
+& a_1 & - & b \\ 
+\end{array} &
+\begin{array}{l|lll}
+\mbox{answer} & A & B & C \\ \hline
+&  a & b & b \\
+\end{array}
+\end{array}
+$$
+We now chase the pattern with $F = \{AC \rightarrow B, B \rightarrow C, C \rightarrow A\}$. The steps are as follows:
+
+\begin{enumerate}
+\item we first consider $AC \rightarrow B$. However, there is no violation of this FD at this point.
+\item we consider $B \rightarrow C$, which is violated by rows (2) and (3). Chasing leads us to identify the $-$ in (3) with $c_1$, yielding:
+
+$$
+\begin{array}{ll}
+\begin{array}{l|lll}
+R & A & B & C \\ \hline
+& a & - & c_1 \\
+& - & b & c_1 \\
+& a_1 & b & c_1 \\
+& a_1 & - & b \\
+\end{array} &
+\begin{array}{l|lll}
+\mbox{answer} & A & B & C \\ \hline
+&  a & b & b \\
+\end{array}
+\end{array}
+$$
+
+\item we consider $C \rightarrow A$, which is violated by rows (1),(2),(3). Chasing leads us to identify $a$, the $-$ in (2), and $a_1$,
+which all become equal to $a$. Note that this includes the $a_1$ in row (4), which is the same $a_1$ as in row (3).  This yields:
+
+\vspace{5mm}
+$$
+\begin{array}{ll}
+\begin{array}{l|lll}
+R & A & B & C \\ \hline
+& a & - & c_1 \\
+& a & b & c_1 \\
+& a & b & c_1 \\
+& a & - & b \\
+\end{array} &
+\begin{array}{l|lll}
+\mbox{answer} & A & B & C \\ \hline
+&  a & b & b \\
+\end{array}
+\end{array}
+$$
+
+\item we are not yet done, because now $AC \rightarrow B$ is violated by rows (1) and (2). Chasing turns the $-$ in (1) into $b$, yielding:
+
+\vspace{5mm}
+$$
+\begin{array}{ll}
+\begin{array}{l|lll}
+R & A & B & C \\ \hline
+& a & b & c_1 \\
+& a & b & c_1 \\
+& a & b & c_1 \\
+& a & - & b \\
+\end{array} &
+\begin{array}{l|lll}
+\mbox{answer} & A & B & C \\ \hline
+&  a & b & b \\
+\end{array} 
+\end{array}
+$$
+
+The above pattern satisfies $F$, so the chase is done.
+
+\end{enumerate}
+
+
+Eliminating duplicate rows from $CHASE_F(P)$ yields the following pattern, which is minimal:
+
+$$
+\begin{array}{ll}
+\begin{array}{l|lll}
+R & A & B & C \\ \hline
+& a & b & c_1 \\
+& a & - & b \\ 
+\end{array} &
+\begin{array}{l|lll}
+\mbox{answer} & A & B & C \\ \hline
+&  a & b & b \\
+\end{array}
+\end{array}
+$$
+and the minimal SQL query is:
+
+\vspace{5mm}
+\begin{tabular}{l}
+{\bf select} $t_1.A, t_1.B, t_2.C$ \\
+{\bf from} $R~t_1, ~R~t_2$ \\
+{\bf where} $t_1.A = t_2.A$ and $t_1.B = t_2.C$ 
+\end{tabular}
+
+
+
+
+\vspace{4mm}
+\noindent
+(ii)The pattern $P$ corresponding to the query is
+
+\vspace{1cm}
+$$
+\begin{array}{ll}
+\begin{array}{l|lll}
+R & A & B & C \\ \hline
+& a & - & 5 \\
+& - & b & 5 \\
+& 8 & b & - \\
+& 8 & - & c 
+\end{array} &
+\begin{array}{l|lll}
+\mbox{answer} & A & B & C \\ \hline
+&  a & b & c \\
+\end{array}
+\end{array}
+$$
+
+
+Chasing with respect to $F = \{AC \rightarrow B, B \rightarrow C, C \rightarrow A\}$ yields (after eliminating duplicate rows):
+ 
+$$
+\begin{array}{ll}
+CHASE_F(P) = &
+\begin{array}{ll}
+\begin{array}{l|lll}
+R & A & B & C \\ \hline
+& 8 & b & 5 \\
+& 8 & - & c\\ 
+\end{array} &
+\begin{array}{l|lll}
+\mbox{answer} & A & B & C \\ \hline
+&  8 & b & c \\
+\end{array}
+\end{array}
+\end{array}
+$$
+
+
+This pattern is minimal, and 
+a corresponding SQL query with minimum number of joins is
+
+\vspace{5mm}
+\begin{tabular}{l}
+{\bf select} $t_1.A, t_1.B, t_2.C$ \\
+{\bf from} $R~t_1, ~R~t_2$ \\
+{\bf where} $t_1.A = 8$ and $t_2.A = 8$ and $t_1.C = 5$
+\end{tabular}
+
+
+
+
+
+
+
+\end{document}
