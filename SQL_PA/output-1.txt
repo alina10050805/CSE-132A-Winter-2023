@@ -1,0 +1,57 @@
+Q1:
+bar        
+-----------
+Beer Garden
+
+Q2:
+drinker1  drinker2
+--------  ---------
+Ben       Molly    
+Ben       Joe 
+
+Q3:
+bar        
+-----------
+Beer Garden
+
+Q4:
+bar             num
+--------------  ---
+Beer Garden     1  
+Start the Fire  0  
+Tune In Bar     1
+
+Q5:
+beer       avg_price  popularity
+---------  ---------  ----------
+Bass       3.0        2         
+Budweiser  100.0      1         
+Coors      2.0        2         
+Sierra     5.0        1         
+
+Q6:
+bar        
+-----------
+Tune In Bar
+Tune In Bar
+
+Q7:
+Before Update:
+drinker  beer     
+-------  ---------
+Molly    Coors    
+Joe      Bass     
+Ben      Coors    
+Ben      Bass     
+Ben      Sierra   
+Ben      Budweiser
+
+After Update:
+drinker  beer     
+-------  ---------
+Molly    Bass     
+Joe      Coors    
+Ben      Bass     
+Ben      Coors    
+Ben      Sierra   
+Ben      Budweiser
