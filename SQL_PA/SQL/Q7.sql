@@ -1,0 +1,9 @@
+UPDATE likes
+SET beer='--'
+WHERE beer='Coors';
+UPDATE likes
+SET beer='Coors'
+WHERE beer='Bass';
+UPDATE likes
+SET beer='Bass'
+WHERE beer='--';
