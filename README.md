@@ -29,7 +29,7 @@ Basic concepts of databases, including data modeling, relational databases, quer
 ## Programming Assignment
 |       |Problem    |Sample   |My Program   |Score  |
 |:------|:----------|:--------|:------------|:------|
-|SQl    |[SQL](./SQL_PA/sql.pdf) |[input](./SQL_PA/input-v1.sql) & [output](./SQL_PA/output-1.txt)    |[Solution](./SQL_PA/SQL) |57/63    |
+|SQL    |[SQL](./SQL_PA/sql.pdf) |[input](./SQL_PA/input-v1.sql) & [output](./SQL_PA/output-1.txt)    |[Solution](./SQL_PA/SQL) |57/63    |
 |JDBC   |[JDBC](./JDBC_PA/PA2-1.pdf)    |[input1](./JDBC_PA/jdbcinput1.sql) [output1](./JDBC_PA/result1.sql) & [input2](./JDBC_PA/jdbcinput2.sql) [output2](./JDBC_PA/result2.sql)  |[Solution](./JDBC_PA/PA2.java) |8/8    |
 
 ## Homeworks
